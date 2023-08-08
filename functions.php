@@ -3,26 +3,23 @@
 // https://woocommerce.com/document/woocommerce-theme-developer-handbook/#section-5
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'woocommerce' );
-	add_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
-
 	add_theme_support( 'title-tag' );
 } );
 
-// change content wrapper
-remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
-add_action( 'woocommerce_before_main_content', function () {
-	echo '<div class="content-area test-container2">';
-}, 10 );
-add_action( 'woocommerce_after_main_content', function () {
-	echo '</div>';
-}, 10 );
+add_action( 'wp_enqueue_scripts', function () {
 
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-add_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 9 );
-add_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 11 );
-add_action( 'woocommerce_before_shop_loop', 'woocommerce_breadcrumb', 11 );
-add_action( 'woocommerce_after_main_content', 'woocommerce_breadcrumb', 11 );
-add_action( 'woocommerce_after_main_content', 'woocommerce_breadcrumb', 5 );
+	wp_enqueue_style( 'wooeshop-google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap' );
+	wp_enqueue_style( 'wooeshop-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css' );
+	wp_enqueue_style( 'wooeshop-fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' );
+	wp_enqueue_style( 'wooeshop-owlcarousel', get_template_directory_uri() . '/assets/owlcarousel/owl.carousel.min.css' );
+	wp_enqueue_style( 'wooeshop-owlcarousel-theme', get_template_directory_uri() . '/assets/owlcarousel/owl.theme.default.min.css' );
+	wp_enqueue_style( 'wooeshop-main', get_template_directory_uri() . '/assets/css/main.css' );
+
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'wooeshop-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js', array(), false, true );
+	wp_enqueue_script( 'wooeshop-owlcarousel', get_template_directory_uri() . '/assets/owlcarousel/owl.carousel.min.js', array(), false, true );
+	wp_enqueue_script( 'wooeshop-main', get_template_directory_uri() . '/assets/js/main.js', array(), false, true );
+
+} );
+
+require_once get_template_directory() . '/incs/woocommerce-hooks.php';
