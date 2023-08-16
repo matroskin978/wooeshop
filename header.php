@@ -1,10 +1,10 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<?php wp_head(); ?>
@@ -93,7 +93,7 @@
                 <div class="row align-items-center">
 
                     <div class="col-sm-6">
-                        <a href="index.html" class="header-logo h1">E-Shop</a>
+                        <a href="<?php echo home_url( '/' ) ?>" class="header-logo h1"><?php bloginfo( 'name' ); ?></a>
                     </div>
 
                     <div class="col-sm-6 mt-2 mt-md-0">
@@ -131,7 +131,15 @@
                                 aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav">
+						<?php
+						wp_nav_menu( array(
+							'theme_location' => 'header-menu',
+                            'container' => false,
+                            'menu_class' => 'navbar-nav',
+                            'walker' => new Wooeshop_Header_Menu(),
+						) );
+						?>
+                        <!--<ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                             </li>
@@ -182,7 +190,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>-->
                     </div>
                 </div>
 
@@ -214,30 +222,39 @@
                 <table class="table offcanvasCart-table">
                     <tbody>
                     <tr>
-                        <td class="product-img-td"><a href="#"><img src="<?php echo get_template_directory_uri() ?>/assets/img/products/1.jpg" alt=""></a>
+                        <td class="product-img-td"><a href="#"><img
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/1.jpg"
+                                        alt=""></a>
                         </td>
                         <td><a href="#">Product 1 Lorem ipsum dolor, sit amet consectetur adipisicing.</a></td>
                         <td>$65</td>
                         <td>&times;1</td>
-                        <td><button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
+                        <td>
+                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="product-img-td"><a href="#"><img src="<?php echo get_template_directory_uri() ?>/assets/img/products/2.jpg" alt=""></a>
+                        <td class="product-img-td"><a href="#"><img
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/2.jpg"
+                                        alt=""></a>
                         </td>
                         <td><a href="#">Product 2</a></td>
                         <td>$80</td>
                         <td>&times;2</td>
-                        <td><button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
+                        <td>
+                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="product-img-td"><a href="#"><img src="<?php echo get_template_directory_uri() ?>/assets/img/products/3.jpg" alt=""></a>
+                        <td class="product-img-td"><a href="#"><img
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/3.jpg"
+                                        alt=""></a>
                         </td>
                         <td><a href="#">Product 3</a></td>
                         <td>$100</td>
                         <td>&times;1</td>
-                        <td><button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
+                        <td>
+                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
                         </td>
                     </tr>
                     </tbody>
