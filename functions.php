@@ -7,6 +7,7 @@ add_action( 'after_setup_theme', function () {
 	load_theme_textdomain( 'wooeshop', get_template_directory() . '/languages' );
 	add_theme_support( 'woocommerce' );
 	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnail' );
 
 	register_nav_menus(
 		array(
@@ -38,3 +39,4 @@ function wooeshop_dump( $data ) {
 require_once get_template_directory() . '/incs/woocommerce-hooks.php';
 require_once get_template_directory() . '/incs/class-wooeshop-header-menu.php';
 require_once get_template_directory() . '/incs/customizer.php';
+require_once get_template_directory() . '/incs/cpt.php';
