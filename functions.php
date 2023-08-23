@@ -2,6 +2,7 @@
 
 // https://woocommerce.com/document/woocommerce-theme-developer-handbook/#section-5
 // https://codex.wordpress.org/Theme_Customization_API
+// https://woocommerce.com/document/woocommerce-shortcodes/#products
 
 add_action( 'after_setup_theme', function () {
 	load_theme_textdomain( 'wooeshop', get_template_directory() . '/languages' );
