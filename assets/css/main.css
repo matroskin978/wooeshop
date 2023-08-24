@@ -327,7 +327,7 @@ ul.social-icons a:hover {
 }
 
 .product-details {
-    padding: 10px 20px;
+    padding: 10px;
 }
 
 .product-details h4 {
@@ -615,6 +615,113 @@ footer a:hover {
 }
 
 /* ============================= Cart Page ============================ */
+
+/*============================= Star Rating ============================*/
+.wooeshop-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+@font-face {
+    font-family:star;
+    src:url(../fonts/star.eot);
+    src:url(../fonts/star.eot?#iefix) format("embedded-opentype"),url(../fonts/star.woff) format("woff"),url(../fonts/star.ttf) format("truetype"),url(../fonts/star.svg#star) format("svg");
+    font-weight:400;
+    font-style:normal;
+}
+.products .product .star-rating {
+    font-size: .857em;
+}
+.woocommerce .star-rating {
+    float: right;
+    overflow: hidden;
+    position: relative;
+    height: 1em;
+    line-height: 1;
+    font-size: 1em;
+    width: 5.4em;
+    font-family: star;
+}
+.woocommerce .star-rating::before {
+    content: "sssss";
+    color: #d3ced2;
+    float: left;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.woocommerce .star-rating span {
+    overflow: hidden;
+    float: left;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding-top: 1.5em;
+}
+.woocommerce .star-rating span::before {
+    content: "SSSSS";
+    top: 0;
+    position: absolute;
+    left: 0;
+    color: #FFD333;
+}
+.woocommerce .woocommerce-product-rating {
+    line-height: 2;
+    display: block;
+}
+.woocommerce .woocommerce-product-rating::after,
+.woocommerce .woocommerce-product-rating::before {
+    content: " ";
+    display: table;
+}
+.woocommerce .woocommerce-product-rating::after {
+    clear: both;
+}
+.woocommerce .woocommerce-product-rating .star-rating {
+    margin: .5em 4px 0 0;
+    float: left;
+}
+.woocommerce .products .star-rating {
+    display: block;
+    float: none;
+}
+.woocommerce .hreview-aggregate .star-rating {
+    margin: 10px 0 0;
+}
+/*============================= Star Rating ============================*/
+
+span.price {
+    display: block;
+    text-align: center;
+}
+
+span.price,
+.price ins {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--red-color);
+}
+
+span.price del {
+    color: var(--gray-color);
+    font-weight: 400;
+    font-size: .8rem;
+    text-decoration: line-through;
+}
+
+.product-bottom-details a {
+    font-size: 1rem;
+}
+
+a.added_to_cart {
+    font-size: .9rem;
+    margin-left: 10px;
+}
+
 
 @media only screen and (min-width : 992px) {
     .header-bottom .navbar .dropdown-menu-end {

@@ -61,28 +61,37 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 			 * @hooked woocommerce_template_loop_product_title - 10
 			 */
 			do_action( 'woocommerce_shop_loop_item_title' );
-            ?>
-
-            <div class="product-excerpt"><?php the_content( '' ); ?></div>
-
-            <?php
-
-			/**
-			 * Hook: woocommerce_after_shop_loop_item_title.
-			 *
-			 * @hooked woocommerce_template_loop_rating - 5
-			 * @hooked woocommerce_template_loop_price - 10
-			 */
-			do_action( 'woocommerce_after_shop_loop_item_title' );
-
-			/**
-			 * Hook: woocommerce_after_shop_loop_item.
-			 *
-			 * @hooked woocommerce_template_loop_product_link_close - 5
-			 * @hooked woocommerce_template_loop_add_to_cart - 10
-			 */
-			do_action( 'woocommerce_after_shop_loop_item' );
 			?>
+
+            <div class="product-excerpt mb-2"><?php the_content( '' ); ?></div>
+
+            <div class="product-bottom-details">
+				<?php
+
+				echo '<div class="wooeshop-rating">';
+                    woocommerce_template_loop_rating();
+                    $rating_cnt = $product->get_rating_count();
+                    echo '<div class="woostudy-rating-count"> <small>(' . $rating_cnt . ')</small> </div>';
+				echo '</div>';
+				echo '<div class="text-center">';
+                    /**
+                     * Hook: woocommerce_after_shop_loop_item_title.
+                     *
+                     * @hooked woocommerce_template_loop_rating - 5
+                     * @hooked woocommerce_template_loop_price - 10
+                     */
+                    do_action( 'woocommerce_after_shop_loop_item_title' );
+
+                    /**
+                     * Hook: woocommerce_after_shop_loop_item.
+                     *
+                     * @hooked woocommerce_template_loop_product_link_close - 5
+                     * @hooked woocommerce_template_loop_add_to_cart - 10
+                     */
+                    do_action( 'woocommerce_after_shop_loop_item' );
+				echo '</div>';
+				?>
+            </div><!-- ./product-bottom-details -->
         </div><!-- ./product-details -->
     </div><!-- ./product-card -->
 </div><!-- ./col-lg-3 col-md-4 col-sm-6 mb-3 -->
