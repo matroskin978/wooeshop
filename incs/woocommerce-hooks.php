@@ -20,3 +20,42 @@ add_filter( 'woocommerce_product_get_rating_html', function ( $html, $rating, $c
 	$html  = '<div class="star-rating" role="img" aria-label="' . esc_attr( $label ) . '">' . wc_get_star_rating_html( $rating, $count ) . '</div>';
 	return $html;
 }, 10, 3 );
+
+
+// custom shortcode
+add_shortcode( 'wooeshop_recent_products', 'wooeshop_recent_products' );
+function wooeshop_recent_products( $atts ){
+	global $woocommerce_loop, $woocommerce;
+
+	extract( shortcode_atts( array(
+		'limit' => '12',
+		'orderby' => 'date',
+		'order' => 'DESC',
+	), $atts ) );
+
+	$args = array(
+		'post_status' => 'publish',
+		'post_type' => 'product',
+		'orderby' => $orderby,
+		'order' => $order,
+		'posts_per_page' => $limit,
+	);
+
+	ob_start();
+
+	$products = new WP_Query( $args );
+
+	if ( $products->have_posts() ) : ?>
+
+		<?php while ( $products->have_posts() ) : $products->the_post(); ?>
+
+			<?php wc_get_template_part( 'content', 'recent-product' ); ?>
+
+		<?php endwhile; // end of the loop. ?>
+
+	<?php endif;
+
+	wp_reset_postdata();
+
+	return '<div class="woocommerce"><div class="owl-carousel owl-theme owl-carousel-full">' . ob_get_clean() . '</div></div>';
+}

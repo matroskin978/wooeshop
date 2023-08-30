@@ -324,6 +324,7 @@ ul.social-icons a:hover {
 
 .product-thumb img {
     max-height: 250px;
+    width: auto;
 }
 
 .product-details {
