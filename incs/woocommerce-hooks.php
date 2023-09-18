@@ -59,3 +59,8 @@ function wooeshop_recent_products( $atts ){
 
 	return '<div class="woocommerce"><div class="owl-carousel owl-theme owl-carousel-full">' . ob_get_clean() . '</div></div>';
 }
+
+add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
+	$fragments['span.cart-badge'] = '<span class="badge text-bg-warning cart-badge bg-warning rounded-circle">' . count( WC()->cart->get_cart() ) . '</span>';
+	return $fragments;
+} );

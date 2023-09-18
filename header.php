@@ -153,15 +153,13 @@
                 </div>
 
                 <div>
-                    <a href="#" class="btn p-1">
-                        <i class="fa-solid fa-heart"></i>
-                        <span class="badge text-bg-warning cart-badge bg-warning rounded-circle">3</span>
-                    </a>
-
-                    <button class="btn p-1" id="cart-open" type="button" data-bs-toggle="offcanvas2"
+                    <button class="btn p-1" id="cart-open" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                         <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="badge text-bg-warning cart-badge bg-warning rounded-circle">5</span>
+                        <span class="badge text-bg-warning cart-badge bg-warning rounded-circle">
+                            <?php //echo WC()->cart->get_cart_contents_count(); ?>
+                            <?php echo count( WC()->cart->get_cart() ); ?>
+                        </span>
                     </button>
                 </div>
 
@@ -176,12 +174,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <div class="table-responsive">
+
+<!--
+https://woocommerce.github.io/code-reference/packages/WooCommerce.html
+https://woocommerce.com/document/show-cart-contents-total/
+-->
+	        <?php woocommerce_mini_cart(); ?>
+
+            <!--<div class="table-responsive">
                 <table class="table offcanvasCart-table">
                     <tbody>
                     <tr>
                         <td class="product-img-td"><a href="#"><img
-                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/1.jpg"
+                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/1.jpg"
                                         alt=""></a>
                         </td>
                         <td><a href="#">Product 1 Lorem ipsum dolor, sit amet consectetur adipisicing.</a></td>
@@ -193,7 +198,7 @@
                     </tr>
                     <tr>
                         <td class="product-img-td"><a href="#"><img
-                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/2.jpg"
+                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/2.jpg"
                                         alt=""></a>
                         </td>
                         <td><a href="#">Product 2</a></td>
@@ -205,7 +210,7 @@
                     </tr>
                     <tr>
                         <td class="product-img-td"><a href="#"><img
-                                        src="<?php echo get_template_directory_uri() ?>/assets/img/products/3.jpg"
+                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/3.jpg"
                                         alt=""></a>
                         </td>
                         <td><a href="#">Product 3</a></td>
@@ -228,23 +233,7 @@
             <div class="text-end mt-3">
                 <a href="#" class="btn btn-outline-warning">Cart</a>
                 <a href="#" class="btn btn-outline-secondary">Checkout</a>
-            </div>
+            </div>-->
 
-            <div class="dropdown mt-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Dropdown button
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item closecart" href="#footer" data-href="footer">Footer</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item closecart" href="#about" data-href="about">About</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item closecart" href="#map" data-href="map">Map</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
