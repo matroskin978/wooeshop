@@ -12,7 +12,10 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<?php $wooeshop_theme_options = wooeshop_theme_options(); ?>
+<?php
+global $wooeshop_theme_options;
+$wooeshop_theme_options = wooeshop_theme_options();
+?>
 
 <div class="wrapper">
 
@@ -107,15 +110,7 @@
                     </div>
 
                     <div class="col-sm-6 mt-2 mt-md-0">
-                        <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="s" placeholder="Searching..."
-                                       aria-label="Searching..." aria-describedby="button-search">
-                                <button class="btn btn-outline-warning" type="submit" id="button-search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </div>
-                        </form>
+	                    <?php aws_get_search_form( true ); ?>
                     </div>
 
                 </div>

@@ -1,3 +1,7 @@
+<?php
+
+global $wooeshop_theme_options;
+ ?>
 <footer class="footer" id="footer">
     <div class="container-fluid">
         <div class="row">
@@ -30,9 +34,17 @@
             <div class="col-md-3 col-6">
                 <h4>Follow us</h4>
                 <ul class="footer-icons">
-                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+		            <?php if ( ! empty( $wooeshop_theme_options['youtube'] ) ): ?>
+                        <li><a href="<?php echo $wooeshop_theme_options['youtube'] ?>"><i
+                                        class="fa-brands fa-youtube"></i></a></li>
+		            <?php endif; ?>
+		            <?php if ( ! empty( $wooeshop_theme_options['facebook'] ) ): ?>
+                        <li><a href="<?php echo $wooeshop_theme_options['facebook'] ?>"><i
+                                        class="fa-brands fa-facebook-f"></i></a></li>
+		            <?php endif; ?>
+		            <?php if ( ! empty( $wooeshop_theme_options['instagram'] ) ): ?>
+                        <li><a href="<?php echo $wooeshop_theme_options['instagram'] ?>"><i class="fa-brands fa-instagram"></i></a></li>
+		            <?php endif; ?>
                 </ul>
             </div>
         </div>
