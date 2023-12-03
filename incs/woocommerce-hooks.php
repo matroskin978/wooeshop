@@ -76,3 +76,18 @@ add_filter( 'woocommerce_breadcrumb_defaults', function () {
 		'home'        => __( 'Home', 'wooeshop' ),
 	);
 } );
+
+// https://woo.com/document/woocommerce-display-category-image-on-category-archive/
+function wooeshop_get_shop_thumb() {
+	$html = '';
+	if ( is_product_category() ){
+		global $wp_query;
+		$cat = $wp_query->get_queried_object();
+		$thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+		$image = wp_get_attachment_url( $thumbnail_id );
+		if ( $image ) {
+			$html .= '<img src="' . $image . '" alt="' . $cat->name . '" class="img-thumbnail">';
+		}
+	}
+	return $html;
+}
