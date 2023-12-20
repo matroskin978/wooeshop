@@ -91,3 +91,5 @@ function wooeshop_get_shop_thumb() {
 	}
 	return $html;
 }
+
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
