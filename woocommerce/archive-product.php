@@ -2,11 +2,17 @@
 
 <?php do_action( 'woocommerce_before_main_content' ); ?>
 
-<div class="col-lg-3 col-md-4">
-	<?php do_action( 'woocommerce_sidebar' ); ?>
-</div><!-- ./col-lg-3 col-md-4 -->
+<?php
+$content_class = is_search() ? 'col-12' : 'col-lg-9 col-md-8';
+?>
 
-<div class="col-lg-9 col-md-8">
+<?php if ( ! is_search() ): ?>
+    <div class="col-lg-3 col-md-4">
+		<?php do_action( 'woocommerce_sidebar' ); ?>
+    </div><!-- ./col-lg-3 col-md-4 -->
+<?php endif; ?>
+
+<div class="<?php echo $content_class; ?>">
 
     <div class="row">
         <div class="col-12">
@@ -15,7 +21,7 @@
                     <span><?php woocommerce_page_title(); ?></span>
                 </h1>
 			<?php endif; ?>
-	        <?php woocommerce_output_all_notices(); ?>
+			<?php woocommerce_output_all_notices(); ?>
         </div><!-- ./col-12 -->
 
 		<?php if ( $shop_img = wooeshop_get_shop_thumb() ): ?>

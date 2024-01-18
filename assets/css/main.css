@@ -903,3 +903,15 @@ section.widget {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.home-categories a {
+    text-decoration: none;
+}
+
+.home-categories a:hover {
+    text-decoration: underline;
+}
+
+.categories-home span {
+    font-size: 14px;
+}

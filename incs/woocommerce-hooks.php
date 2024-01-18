@@ -93,3 +93,8 @@ function wooeshop_get_shop_thumb() {
 }
 
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
+
+remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title', 10 );
+add_action( 'woocommerce_shop_loop_subcategory_title', function ( $category ) {
+	echo "<h5 class='mt-2 categories-home'>{$category->name} <span>({$category->count})</span></h5>";
+}, 10 );

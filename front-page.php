@@ -45,7 +45,7 @@
 	<?php endif; ?>
 
     <section class="advantages">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mb-5">
                 <div class="col-12">
                     <h2 class="section-title">
@@ -95,8 +95,24 @@
         </div>
     </section>
 
+<!-- https://woo.com/document/woocommerce-shortcodes/#product-category -->
+    <section class="home-categories">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">
+                        <span><?php _e( 'Categories', 'wooeshop' ) ?></span>
+                    </h2>
+                </div>
+            </div>
+
+	        <?php echo do_shortcode( '[product_categories hide_empty="0"]' ) ?>
+
+        </div>
+    </section>
+
     <section class="featured-products">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mb-5">
                 <div class="col-12">
                     <h2 class="section-title">
@@ -111,7 +127,7 @@
     </section>
 
     <section class="new-products">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mb-5">
                 <div class="col-12">
                     <h2 class="section-title">
@@ -122,43 +138,11 @@
 
 	        <?php echo do_shortcode( '[wooeshop_recent_products limit="8"]' ); ?>
 
-            <!--<div class="owl-carousel owl-theme owl-carousel-full">
-                <div class="product-card">
-                    <div class="product-card-offer">
-                        <div class="offer-hit">Hit</div>
-                        <div class="offer-new">New</div>
-                    </div>
-                    <div class="product-thumb">
-                        <a href="product.html"><img
-                                    src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/1.jpg"
-                                    alt=""></a>
-                    </div>
-                    <div class="product-details">
-                        <h4>
-                            <a href="product.html">Product 1 Lorem ipsum dolor, sit amet consectetur
-                                adipisicing.</a>
-                        </h4>
-                        <p class="product-excerpt">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Placeat, aperiam!</p>
-                        <div class="product-bottom-details d-flex justify-content-between">
-                            <div class="product-price">
-                                <small>$70</small>
-                                $65
-                            </div>
-                            <div class="product-links">
-                                <a href="#" class="btn btn-outline-secondary add-to-cart"><i
-                                            class="fas fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
         </div>
     </section>
 
     <section class="about-us" id="about">
-        <div class="container fluid">
+        <div class="container">
             <div class="row mb-5">
                 <div class="col-12">
                     <h2 class="section-title">
