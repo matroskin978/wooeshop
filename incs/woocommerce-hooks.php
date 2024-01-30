@@ -69,8 +69,8 @@ add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
 add_filter( 'woocommerce_breadcrumb_defaults', function () {
 	return array(
 		'delimiter'   => '',
-		'wrap_before' => '<div class="container"><div class="row"><div class="col-12"><nav class="breadcrumbs"><ul>',
-		'wrap_after'  => '</ul></nav></div></div></div>',
+		'wrap_before' => '<div class="col-12"><nav class="breadcrumbs"><ul>',
+		'wrap_after'  => '</ul></nav></div>',
 		'before'      => '<li>',
 		'after'       => '</li>',
 		'home'        => __( 'Home', 'wooeshop' ),
@@ -98,3 +98,10 @@ remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_
 add_action( 'woocommerce_shop_loop_subcategory_title', function ( $category ) {
 	echo "<h5 class='mt-2 categories-home'>{$category->name} <span>({$category->count})</span></h5>";
 }, 10 );
+
+/*add_action( 'template_redirect', function () {
+	if ( is_product() ) {
+		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+	}
+} );*/
+

@@ -915,3 +915,7 @@ section.widget {
 .categories-home span {
     font-size: 14px;
 }
+
+.wpc-filters-range-wrapper input[type="number"] {
+    border: 1px solid #ccc;
+}
