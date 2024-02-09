@@ -461,6 +461,7 @@ footer a:hover {
 .breadcrumbs ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     margin: 0;
     padding: 0;
 }
@@ -918,4 +919,34 @@ section.widget {
 
 .wpc-filters-range-wrapper input[type="number"] {
     border: 1px solid #ccc;
+}
+
+.product-content .onsale {
+    background: var(--red-color);
+    color: #fff;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.product-content .price > span > bdi,
+.product-content .price ins {
+    color: var(--red-color);
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.product-content .price > del > span {
+    color: var(--gray-color);
+    font-weight: 400;
+    text-decoration: line-through;
+    font-size: 1rem;
+}
+
+.product_meta {
+    margin-top: 20px;
+}
+
+.product_meta > span {
+    display: block;
 }

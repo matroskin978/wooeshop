@@ -57,7 +57,8 @@ global $product;
 
         <div class="col-md-7 col-lg-8 mb-3">
             <div class="bg-white product-content p-3 h-100">
-                Content
+	            <?php woocommerce_show_product_sale_flash(); ?>
+	            <?php do_action( 'woocommerce_single_product_summary' );; ?>
             </div><!-- ./bg-white product-content p-3 h-100 -->
         </div><!-- ./col-md-7 col-lg-8 mb-3 -->
 
