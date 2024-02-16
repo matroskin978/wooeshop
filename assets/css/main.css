@@ -950,3 +950,49 @@ section.widget {
 .product_meta > span {
     display: block;
 }
+
+.woocommerce-product-gallery {
+    position: relative;
+}
+
+.woocommerce-product-gallery .woocommerce-product-gallery__trigger {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    text-decoration: none;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs li {
+    width: 25%;
+    float: left;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs li:nth-child(4n+1) {
+    clear: left;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs li img {
+    cursor: pointer;
+    opacity: .5;
+    transition: all .3s;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs li img:hover,
+.woocommerce-product-gallery .flex-control-thumbs li img.flex-active {
+    opacity: 1;
+}
+
+.product-gallery .carousel-item img {
+    cursor: pointer;
+}
+
+.fancybox__container {
+    z-index: 100000;
+}

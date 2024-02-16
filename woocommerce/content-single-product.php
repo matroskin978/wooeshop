@@ -14,8 +14,11 @@ global $product;
     <div class="row">
 
         <div class="col-md-5 col-lg-4 mb-3">
+
+	        <?php //do_action( 'woocommerce_before_single_product_summary' ); ?>
+
             <div class="bg-white h-100">
-                <div id="carouselExampleFade" class="carousel carousel-dark slide carousel-fade">
+                <div id="carouselExampleFade" class="carousel carousel-dark slide carousel-fade product-gallery">
                     <div class="carousel-inner">
 						<?php
 						$product_img_id = $product->get_image_id();
@@ -27,13 +30,13 @@ global $product;
 						$product_img_ids = $product->get_gallery_image_ids();
 						?>
                         <div class="carousel-item active">
-                            <img src="<?php echo $main_img; ?>" class="d-block w-100"
+                            <img data-fancybox="gallery" src="<?php echo $main_img; ?>" class="d-block w-100"
                                  alt="<?php echo $product->get_title(); ?>">
                         </div>
 						<?php if ( $product_img_ids ): ?>
 							<?php foreach ( $product_img_ids as $product_img_id ): ?>
                                 <div class="carousel-item">
-                                    <img src="<?php echo wp_get_attachment_url( $product_img_id ); ?>"
+                                    <img data-fancybox="gallery" src="<?php echo wp_get_attachment_url( $product_img_id ); ?>"
                                          class="d-block w-100" alt="<?php echo $product->get_title(); ?>">
                                 </div>
 							<?php endforeach; ?>
