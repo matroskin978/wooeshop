@@ -546,7 +546,7 @@ footer a:hover {
 }
 
 .product-content .input-group {
-    width: 250px;
+    width: 150px;
 }
 
 .product-content .card i {
@@ -995,4 +995,22 @@ section.widget {
 
 .fancybox__container {
     z-index: 100000;
+}
+
+.add2cart-btn {
+    margin-left: 10px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.product-add2cart input.qty::-webkit-outer-spin-button,
+.product-add2cart input.qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    text-align: center;
+}
+
+/* Firefox */
+.product-add2cart input.qty[type=number] {
+    -moz-appearance: textfield;
+    text-align: center;
 }

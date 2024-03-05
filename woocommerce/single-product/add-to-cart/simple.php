@@ -36,8 +36,7 @@ if ( $product->is_in_stock() ) : ?>
 
 		<?php do_action( 'woocommerce_before_add_to_cart_quantity' ); ?>
 
-        <div class="product-add2cart">
-            <div class="input-group">
+        <div class="product-add2cart d-flex">
 				<?php
 				woocommerce_quantity_input(
 					array(
@@ -52,11 +51,10 @@ if ( $product->is_in_stock() ) : ?>
 				<?php do_action( 'woocommerce_after_add_to_cart_quantity' ); ?>
 
                 <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"
-                        class="btn btn-warning single_add_to_cart_button button alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><i class="fas fa-shopping-cart"></i> <?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+                        class="btn btn-warning add2cart-btn single_add_to_cart_button button alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><i class="fas fa-shopping-cart"></i> <?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
 				<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 
-            </div>
         </div>
 
 
