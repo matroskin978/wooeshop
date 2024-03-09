@@ -64,13 +64,16 @@ jQuery(document).ready(function($) {
 
     $('.quantity button').on('click', function () {
         let btn = $(this);
+        let groupedProduct = btn.closest('.woocommerce-grouped-product-list-item__quantity').length;
         let inputQty = btn.parent().find('.qty');
         let prevValue = +(inputQty.val());
-        let newValue = 1;
+        let newValue = groupedProduct ? 0 : 1;
         if (btn.hasClass('btn-plus')) {
             newValue = prevValue + 1;
         } else {
-            if (prevValue > 1) {
+            if (!groupedProduct && prevValue > 1) {
+                newValue = prevValue - 1;
+            } else if (groupedProduct && prevValue > 0) {
                 newValue = prevValue - 1;
             }
         }

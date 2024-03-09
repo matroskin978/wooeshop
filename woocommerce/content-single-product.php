@@ -15,7 +15,7 @@ global $product;
 
         <div class="col-md-5 col-lg-4 mb-3">
 
-	        <?php //do_action( 'woocommerce_before_single_product_summary' ); ?>
+			<?php //do_action( 'woocommerce_before_single_product_summary' ); ?>
 
             <div class="bg-white h-100">
                 <div id="carouselExampleFade" class="carousel carousel-dark slide carousel-fade product-gallery">
@@ -36,7 +36,8 @@ global $product;
 						<?php if ( $product_img_ids ): ?>
 							<?php foreach ( $product_img_ids as $product_img_id ): ?>
                                 <div class="carousel-item">
-                                    <img data-fancybox="gallery" src="<?php echo wp_get_attachment_url( $product_img_id ); ?>"
+                                    <img data-fancybox="gallery"
+                                         src="<?php echo wp_get_attachment_url( $product_img_id ); ?>"
                                          class="d-block w-100" alt="<?php echo $product->get_title(); ?>">
                                 </div>
 							<?php endforeach; ?>
@@ -60,12 +61,22 @@ global $product;
 
         <div class="col-md-7 col-lg-8 mb-3">
             <div class="bg-white product-content p-3 h-100">
-	            <?php woocommerce_show_product_sale_flash(); ?>
-	            <?php do_action( 'woocommerce_single_product_summary' );; ?>
+				<?php woocommerce_show_product_sale_flash(); ?>
+				<?php do_action( 'woocommerce_single_product_summary' );; ?>
             </div><!-- ./bg-white product-content p-3 h-100 -->
         </div><!-- ./col-md-7 col-lg-8 mb-3 -->
 
     </div><!-- ./row -->
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="product-content-details bg-white p-4">
+
+				<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
+
+            </div>
+        </div>
+    </div>
 
 </div><!-- ./col-12 product-content-wrapper -->
 
