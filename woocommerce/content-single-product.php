@@ -68,7 +68,7 @@ global $product;
 
     </div><!-- ./row -->
 
-    <div class="row mt-3">
+    <div class="row my-3">
         <div class="col-12">
             <div class="product-content-details bg-white p-4">
 
@@ -77,6 +77,11 @@ global $product;
             </div>
         </div>
     </div>
+
+	<?php
+	woocommerce_upsell_display();
+	woocommerce_output_related_products();
+    ?>
 
 </div><!-- ./col-12 product-content-wrapper -->
 

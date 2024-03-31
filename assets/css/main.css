@@ -634,6 +634,15 @@ footer a:hover {
     font-weight:400;
     font-style:normal;
 }
+
+@font-face {
+    font-family: WooCommerce;
+    src: url(../fonts/WooCommerce.eot);
+    src: url(../fonts/WooCommerce.eot?#iefix) format("embedded-opentype"), url(../fonts/WooCommerce.woff) format("woff"), url(../fonts/WooCommerce.ttf) format("truetype"), url(../fonts/WooCommerce.svg#WooCommerce) format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
 .products .product .star-rating {
     font-size: .857em;
 }
@@ -692,6 +701,51 @@ footer a:hover {
 }
 .woocommerce .hreview-aggregate .star-rating {
     margin: 10px 0 0;
+}
+/* comments */
+.woocommerce p.stars a {
+    position: relative;
+    height: 1em;
+    width: 1em;
+    text-indent: -999em;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.woocommerce p.stars a::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    font-family: WooCommerce;
+    content: "\e021";
+    text-indent: 0;
+}
+
+.woocommerce p.stars a:hover ~ a::before {
+    content: "\e021";
+}
+
+.woocommerce p.stars:hover a::before {
+    content: "\e020";
+    color: var(--accent-color);
+}
+
+.woocommerce p.stars.selected a.active::before {
+    content: "\e020";
+    color: var(--accent-color);
+}
+
+.woocommerce p.stars.selected a.active ~ a::before {
+    content: "\e021";
+}
+
+.woocommerce p.stars.selected a:not(.active)::before {
+    content: "\e020";
+    color: var(--accent-color);
 }
 /*============================= Star Rating ============================*/
 
@@ -1048,3 +1102,31 @@ section.widget {
     }
 }
 
+.product-review {
+    margin-bottom: 20px;
+}
+
+.product-review-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-review-header .review-date {
+    color: var(--gray-color);
+}
+
+.product-review-header .avatar {
+    max-height: 60px;
+}
+
+.product-review .card-text {
+    margin-top: 20px;
+}
+
+.comment-author-rating {
+    text-align: right;
+}
+
+.comment-author-rating .meta {
+    margin-bottom: 5px;
+}

@@ -99,11 +99,6 @@ add_action( 'woocommerce_shop_loop_subcategory_title', function ( $category ) {
 	echo "<h5 class='mt-2 categories-home'>{$category->name} <span>({$category->count})</span></h5>";
 }, 10 );
 
-/*add_action( 'template_redirect', function () {
-	if ( is_product() ) {
-		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
-	}
-} );*/
 
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 
