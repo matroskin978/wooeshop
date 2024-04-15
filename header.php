@@ -27,34 +27,39 @@ $wooeshop_theme_options = wooeshop_theme_options();
                         <div class="header-top-phone d-flex align-items-center h-100">
 							<?php if ( ! empty( $wooeshop_theme_options['phone'] ) ): ?>
                                 <i class="fa-solid fa-mobile-screen"></i>
-                                <a href="tel:+<?php echo str_replace( array( ' ', '-', '+' ), array( '', '', '' ), $wooeshop_theme_options['phone'] ) ?>" class="ms-2"><?php echo $wooeshop_theme_options['phone'] ?></a>
+                                <a href="tel:+<?php echo str_replace( array( ' ', '-', '+' ), array(
+									'',
+									'',
+									''
+								), $wooeshop_theme_options['phone'] ) ?>"
+                                   class="ms-2"><?php echo $wooeshop_theme_options['phone'] ?></a>
 							<?php endif; ?>
                         </div>
                     </div>
 
                     <div class="col-sm-4 d-none d-sm-block">
                         <ul class="social-icons d-flex justify-content-center">
-	                        <?php if ( ! empty( $wooeshop_theme_options['youtube'] ) ): ?>
+							<?php if ( ! empty( $wooeshop_theme_options['youtube'] ) ): ?>
                                 <li>
                                     <a href="<?php echo $wooeshop_theme_options['youtube'] ?>">
                                         <i class="fa-brands fa-youtube"></i>
                                     </a>
                                 </li>
-	                        <?php endif; ?>
-	                        <?php if ( ! empty( $wooeshop_theme_options['facebook'] ) ): ?>
+							<?php endif; ?>
+							<?php if ( ! empty( $wooeshop_theme_options['facebook'] ) ): ?>
                                 <li>
                                     <a href="<?php echo $wooeshop_theme_options['facebook'] ?>">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
                                 </li>
-	                        <?php endif; ?>
-	                        <?php if ( ! empty( $wooeshop_theme_options['instagram'] ) ): ?>
+							<?php endif; ?>
+							<?php if ( ! empty( $wooeshop_theme_options['instagram'] ) ): ?>
                                 <li>
                                     <a href="<?php echo $wooeshop_theme_options['instagram'] ?>">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
                                 </li>
-	                        <?php endif; ?>
+							<?php endif; ?>
                         </ul>
                     </div>
 
@@ -110,7 +115,7 @@ $wooeshop_theme_options = wooeshop_theme_options();
                     </div>
 
                     <div class="col-sm-6 mt-2 mt-md-0">
-	                    <?php aws_get_search_form( true ); ?>
+						<?php aws_get_search_form( true ); ?>
                     </div>
 
                 </div>
@@ -147,88 +152,38 @@ $wooeshop_theme_options = wooeshop_theme_options();
                     </div>
                 </div>
 
-                <div>
-                    <button class="btn p-1" id="cart-open" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="badge text-bg-warning cart-badge bg-warning rounded-circle">
+				<?php if ( ! is_cart() ): ?>
+                    <div>
+                        <button class="btn p-1" id="cart-open" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="badge text-bg-warning cart-badge bg-warning rounded-circle">
                             <?php //echo WC()->cart->get_cart_contents_count(); ?>
                             <?php echo count( WC()->cart->get_cart() ); ?>
                         </span>
-                    </button>
-                </div>
+                        </button>
+                    </div>
+				<?php endif; ?>
 
             </div>
         </nav>
     </div>
     <!-- ./header-bottom -->
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasCartLabel">Cart</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-
-<!--
-https://woocommerce.github.io/code-reference/packages/WooCommerce.html
-https://woocommerce.com/document/show-cart-contents-total/
--->
-	        <?php woocommerce_mini_cart(); ?>
-
-            <!--<div class="table-responsive">
-                <table class="table offcanvasCart-table">
-                    <tbody>
-                    <tr>
-                        <td class="product-img-td"><a href="#"><img
-                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/1.jpg"
-                                        alt=""></a>
-                        </td>
-                        <td><a href="#">Product 1 Lorem ipsum dolor, sit amet consectetur adipisicing.</a></td>
-                        <td>$65</td>
-                        <td>&times;1</td>
-                        <td>
-                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="product-img-td"><a href="#"><img
-                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/2.jpg"
-                                        alt=""></a>
-                        </td>
-                        <td><a href="#">Product 2</a></td>
-                        <td>$80</td>
-                        <td>&times;2</td>
-                        <td>
-                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="product-img-td"><a href="#"><img
-                                        src="<?php /*echo get_template_directory_uri() */?>/assets/img/products/3.jpg"
-                                        alt=""></a>
-                        </td>
-                        <td><a href="#">Product 3</a></td>
-                        <td>$100</td>
-                        <td>&times;1</td>
-                        <td>
-                            <button class="btn btn-danger"><i class="fa-regular fa-circle-xmark"></i></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="4" class="text-end">Total:</td>
-                        <td>$325</td>
-                    </tr>
-                    </tfoot>
-                </table>
+	<?php if ( ! is_cart() ): ?>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasCartLabel">Cart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <div class="offcanvas-body">
 
-            <div class="text-end mt-3">
-                <a href="#" class="btn btn-outline-warning">Cart</a>
-                <a href="#" class="btn btn-outline-secondary">Checkout</a>
-            </div>-->
+                <!--
+				https://woocommerce.github.io/code-reference/packages/WooCommerce.html
+				https://woocommerce.com/document/show-cart-contents-total/
+				-->
+				<?php woocommerce_mini_cart(); ?>
 
+            </div>
         </div>
-    </div>
+	<?php endif; ?>

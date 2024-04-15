@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
         btn.closest('.product-card').find('.ajax-loader').fadeOut();
     });
 
-    $('.quantity button').on('click', function () {
+    $('main.main').on('click', '.quantity button', function () {
         let btn = $(this);
         let groupedProduct = btn.closest('.woocommerce-grouped-product-list-item__quantity').length;
         let inputQty = btn.parent().find('.qty');
@@ -78,6 +78,7 @@ jQuery(document).ready(function($) {
             }
         }
         inputQty.val(newValue);
+        $('.update-cart').prop('disabled', false);
     });
 
 });

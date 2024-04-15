@@ -1073,7 +1073,8 @@ section.widget {
 
 /* Firefox */
 .product-add2cart input.qty[type=number],
-.woocommerce-grouped-product-list-item input.qty[type=number] {
+.woocommerce-grouped-product-list-item input.qty[type=number],
+.woocommerce-cart-form input.qty[type=number] {
     -moz-appearance: textfield;
     text-align: center;
 }
