@@ -1131,3 +1131,33 @@ section.widget {
 .comment-author-rating .meta {
     margin-bottom: 5px;
 }
+
+.shop_table th {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.shop_table td {
+    text-align: right;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.shop_table ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.shop_table ul input {
+    margin-left: 5px;
+}
+
+.woocommerce-notices-wrapper ul {
+    list-style: none;
+}
+
+.woocommerce-notices-wrapper .woocommerce-error {
+    color: #fff;
+    background: #dc3545;
+    padding: 1rem;
+}

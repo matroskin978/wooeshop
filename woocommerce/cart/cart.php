@@ -36,7 +36,7 @@ do_action( 'woocommerce_before_main_content' );
                     <tr>
                         <th class="product-thumbnail"><?php esc_html_e( 'Thumbnail image', 'woocommerce' ); ?></th>
                         <th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-                        <th class="product-price"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+                        <th class="product-price-cart"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
                         <th class="product-quantity"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
                         <th class="product-subtotal"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
                         <th class="product-remove"><i class="fa-regular fa-trash-can"></i></th>
@@ -103,7 +103,7 @@ do_action( 'woocommerce_before_main_content' );
 		                            ?>
                                 </td>
 
-                                <td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
+                                <td class="product-price-cart" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 		                            <?php
 		                            echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 		                            ?>
@@ -167,6 +167,25 @@ do_action( 'woocommerce_before_main_content' );
                     </tbody>
                     <tfoot>
                     <?php do_action( 'woocommerce_cart_contents' ); ?>
+
+                    <?php if ( wc_coupons_enabled() ): ?>
+                        <tr>
+                            <td colspan="6">
+                                <a class="btn btn-link px-0 btn-coupon" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseCoupon">
+                                    Have a Coupon?
+                                </a>
+
+                                <div class="coupon input-group collapse" id="collapseCoupon">
+                                    <label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label>
+                                    <input type="text" name="coupon_code" class="input-text form-control" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
+                                    <button type="submit" class="btn btn-warning button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+		                            <?php do_action( 'woocommerce_cart_coupon' ); ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
                     <tr>
                         <td colspan="6" class="text-end">
                             <button type="submit" class="update-cart btn btn-outline-warning button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
@@ -189,45 +208,8 @@ do_action( 'woocommerce_before_main_content' );
 
 <div class="col-lg-4 mb-3">
 
-    <div class="cart-summary p-3 sidebar">
-        <h5 class="section-title"><span>Cart Summary</span></h5>
-
-        <div class="d-flex justify-content-between my-3">
-            <h6>Subtotal</h6>
-            <h6>$1000</h6>
-        </div>
-
-        <div class="d-flex justify-content-between my-3">
-            <h6>Coupon</h6>
-            <h6>-$20</h6>
-        </div>
-
-        <div class="d-flex justify-content-between my-3 border-bottom">
-            <h6>Shipping</h6>
-            <h6>$10</h6>
-        </div>
-
-        <button class="btn btn-link px-0 btn-coupon" data-bs-toggle="collapse" data-bs-target="#collapseCoupon">
-            Have a Coupon?
-        </button>
-
-        <div class="input-group collapse" id="collapseCoupon">
-            <input type="text" class="form-control" placeholder="Coupon Code">
-            <button class="btn btn-warning">
-                <i class="fa-regular fa-circle-check"></i>
-            </button>
-        </div>
-
-        <div class="d-flex justify-content-between my-3">
-            <h3>Total</h3>
-            <h3>$990</h3>
-        </div>
-
-        <div class="d-grid">
-            <a href="#" class="btn btn-warning">Checkout</a>
-        </div>
-
-    </div>
+	<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
+	<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
 </div>
 
