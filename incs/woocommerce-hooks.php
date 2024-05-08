@@ -104,3 +104,10 @@ remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_pr
 
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+// https://developer.woocommerce.com/docs/customizing-checkout-fields-using-actions-and-filters/
+
+add_filter( 'woocommerce_default_address_fields' , function ( $fields ) {
+	unset( $fields['company'], $fields['address_2'], $fields['postcode'] );
+	return $fields;
+} );
