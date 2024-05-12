@@ -55,7 +55,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 
 				<div class="col-lg-4 mb-3">
-					2
+					<div class="cart-summary p-3 sidebar h-100">
+						<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
+                        <h5 class="section-title" id="order_review_heading"><span><?php esc_html_e( 'Your order', 'woocommerce' ); ?></span></h5>
+						<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+                        <div id="order_review" class="woocommerce-checkout-review-order table-responsive">
+							<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+                        </div>
+
+						<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+                    </div><!-- ./cart-summary p-3 sidebar h-100 -->
 				</div><!-- ./col-lg-4 mb-3 -->
 
 

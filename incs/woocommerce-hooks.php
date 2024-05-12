@@ -111,3 +111,8 @@ add_filter( 'woocommerce_default_address_fields' , function ( $fields ) {
 	unset( $fields['company'], $fields['address_2'], $fields['postcode'] );
 	return $fields;
 } );
+
+add_filter( 'woocommerce_order_button_html', function ( $button ) {
+	$btn = str_replace( 'button alt', 'button alt btn btn-warning', $button );
+	return '<div class="d-grid mt-3">' . $btn . '</div>';
+} );
