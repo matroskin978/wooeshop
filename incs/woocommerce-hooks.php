@@ -116,3 +116,7 @@ add_filter( 'woocommerce_order_button_html', function ( $button ) {
 	$btn = str_replace( 'button alt', 'button alt btn btn-warning', $button );
 	return '<div class="d-grid mt-3">' . $btn . '</div>';
 } );
+
+add_action( 'wp_print_scripts', function () {
+	wp_dequeue_script( 'wc-password-strength-meter' );
+}, 100 );
