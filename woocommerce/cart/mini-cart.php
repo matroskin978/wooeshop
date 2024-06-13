@@ -109,6 +109,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 		<?php do_action( 'woocommerce_widget_shopping_cart_before_buttons' ); ?>
 
         <div class="text-end mt-3 woocommerce-mini-cart__buttons buttons">
+
             <a href="<?php echo wc_get_cart_url(); ?>"
                class="btn btn-outline-warning"><?php _e( 'Cart', 'wooeshop' ); ?></a>
             <a href="<?php echo wc_get_checkout_url(); ?>"

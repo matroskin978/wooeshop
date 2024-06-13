@@ -173,7 +173,7 @@ do_action( 'woocommerce_before_main_content' );
                             <td colspan="6">
                                 <a class="btn btn-link px-0 btn-coupon" data-bs-toggle="collapse"
                                         data-bs-target="#collapseCoupon">
-                                    Have a Coupon?
+	                                <?php _e( 'Have a Coupon?', 'wooeshop' ); ?>
                                 </a>
 
                                 <div class="coupon input-group collapse" id="collapseCoupon">
