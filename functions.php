@@ -50,7 +50,20 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script( 'wooeshop-fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js', array(), false, true );
 	wp_enqueue_script( 'wooeshop-main', get_template_directory_uri() . '/assets/js/main.js', array(), false, true );
 
+	wp_localize_script( 'wooeshop-main', 'wooeshop_wishlist_object', array(
+		'url' => admin_url( 'admin-ajax.php' ),
+		'nonce' => wp_create_nonce( 'wooeshop_wishlist_nonce' ),
+	) );
+
 } );
+
+add_action( 'wp_ajax_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
+add_action( 'wp_ajax_nopriv_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
+
+function wooeshop_wishlist_action_cb() {
+	wooeshop_dump( $_POST );
+	wp_die();
+}
 
 function wooeshop_dump( $data ) {
 	echo "<pre>" . print_r( $data, 1 ) . "</pre>";

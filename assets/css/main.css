@@ -1299,3 +1299,22 @@ ul.woocommerce-error {
 .woocommerce-Address {
     width: 100%;
 }
+
+.wishlist-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+.wishlist-icon i {
+    font-size: 20px;
+    transition: all .3s;
+}
+
+.wishlist-icon:hover i,
+.wishlist-icon.in-wishlist i {
+    color: var(--accent-color);
+}
+
+

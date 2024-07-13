@@ -29,6 +29,9 @@ $product_classes = ( is_front_page() || is_search() || is_product() ) ? 'col-lg-
 
 <div <?php wc_product_class( $product_classes, $product ); ?>>
     <div class="product-card">
+        <div class="wishlist-icon" data-id="<?php echo $product->get_id(); ?>">
+            <i class="fa-solid fa-heart"></i>
+        </div>
         <div class="ajax-loader">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/ripple.svg" alt="">
         </div>
