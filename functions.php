@@ -51,7 +51,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script( 'wooeshop-main', get_template_directory_uri() . '/assets/js/main.js', array(), false, true );
 
 	wp_localize_script( 'wooeshop-main', 'wooeshop_wishlist_object', array(
-		'url' => admin_url( 'admin-ajax.php' ),
+		'url'   => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'wooeshop_wishlist_nonce' ),
 	) );
 
@@ -61,8 +61,50 @@ add_action( 'wp_ajax_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
 add_action( 'wp_ajax_nopriv_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
 
 function wooeshop_wishlist_action_cb() {
-	wooeshop_dump( $_POST );
-	wp_die();
+
+	if ( ! isset( $_POST['nonce'] ) ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Security error 1', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	if ( ! wp_verify_nonce( $_POST['nonce'], 'wooeshop_wishlist_nonce' ) ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Security error 2', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	$product_id = (int) $_POST['product_id'];
+	$product = wc_get_product( $product_id );
+
+	if ( ! $product || $product->get_status() != 'publish' ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Error product', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	$wishlist = wooeshop_get_wishlist();
+
+	if ( false !== ( $key = array_search( $product_id, $wishlist ) ) ) {
+		unset( $wishlist[$key] );
+		$answer = json_encode( [ 'status' => 'success', 'answer' => __( 'The product hase been removed from wishlist', 'wooeshop' ) ] );
+	} else {
+		if ( count( $wishlist ) >= 4 ) {
+			array_shift( $wishlist );
+		}
+		$wishlist[] = $product_id;
+		$answer = json_encode( [ 'status' => 'success', 'answer' => __( 'The product hase been added to wishlist', 'wooeshop' ) ] );
+	}
+	$wishlist = implode( ',', $wishlist );
+	setcookie( 'wooeshop_wishlist', $wishlist, time() + 3600 * 24 * 30, '/' );
+
+	wp_die( $answer );
+}
+
+function wooeshop_get_wishlist() {
+	$wishlist = isset( $_COOKIE['wooeshop_wishlist'] ) ? $_COOKIE['wooeshop_wishlist'] : [];
+	//$wishlist = $_COOKIE['wooeshop_wishlist'] ?? [];
+	if ( $wishlist ) {
+		$wishlist = explode( ',', $wishlist );
+	}
+	return $wishlist;
 }
 
 function wooeshop_dump( $data ) {
