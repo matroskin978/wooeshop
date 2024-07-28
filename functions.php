@@ -42,12 +42,18 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'wooeshop-owlcarousel', get_template_directory_uri() . '/assets/owlcarousel/owl.carousel.min.css' );
 	wp_enqueue_style( 'wooeshop-owlcarousel-theme', get_template_directory_uri() . '/assets/owlcarousel/owl.theme.default.min.css' );
 	wp_enqueue_style( 'wooeshop-fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css' );
+
 	wp_enqueue_style( 'wooeshop-main', get_template_directory_uri() . '/assets/css/main.css' );
+
+	wp_enqueue_style( 'wooeshop-izitoast', get_template_directory_uri() . '/assets/izitoast/iziToast.min.css' );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'wooeshop-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js', array(), false, true );
 	wp_enqueue_script( 'wooeshop-owlcarousel', get_template_directory_uri() . '/assets/owlcarousel/owl.carousel.min.js', array(), false, true );
 	wp_enqueue_script( 'wooeshop-fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js', array(), false, true );
+
+	wp_enqueue_script( 'wooeshop-izitoast', get_template_directory_uri() . '/assets/izitoast/iziToast.min.js', array(), false, true );
+
 	wp_enqueue_script( 'wooeshop-main', get_template_directory_uri() . '/assets/js/main.js', array(), false, true );
 
 	wp_localize_script( 'wooeshop-main', 'wooeshop_wishlist_object', array(
@@ -86,7 +92,7 @@ function wooeshop_wishlist_action_cb() {
 		unset( $wishlist[$key] );
 		$answer = json_encode( [ 'status' => 'success', 'answer' => __( 'The product hase been removed from wishlist', 'wooeshop' ) ] );
 	} else {
-		if ( count( $wishlist ) >= 4 ) {
+		if ( count( $wishlist ) >= 8 ) {
 			array_shift( $wishlist );
 		}
 		$wishlist[] = $product_id;
@@ -96,6 +102,11 @@ function wooeshop_wishlist_action_cb() {
 	setcookie( 'wooeshop_wishlist', $wishlist, time() + 3600 * 24 * 30, '/' );
 
 	wp_die( $answer );
+}
+
+function wooeshop_in_wishlist( $product_id ) {
+	$wishlist = wooeshop_get_wishlist();
+	return false !== array_search( $product_id, $wishlist );
 }
 
 function wooeshop_get_wishlist() {

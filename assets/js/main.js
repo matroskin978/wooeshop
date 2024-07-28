@@ -83,6 +83,16 @@ jQuery(document).ready(function($) {
 
     $('.wishlist-icon').on('click', function () {
         let $this = $(this);
+
+        if ($this.hasClass('lock')) {
+            iziToast.warning({
+                title: 'Warning',
+                message: 'Дождитесь завершения операции',
+            });
+            return false;
+        }
+
+        $('.wishlist-icon').addClass('lock');
         let productId = $this.data('id');
         let ajaxLoader = $this.closest('.product-card').find('.ajax-loader');
         $.ajax({
@@ -97,12 +107,40 @@ jQuery(document).ready(function($) {
                 ajaxLoader.fadeIn();
             },
             success: function (res) {
-                console.log(res);
+                $('.wishlist-icon').removeClass('lock');
+                res = JSON.parse(res);
+                if (res.status === 'success') {
+                    $this.toggleClass('in-wishlist');
+                    iziToast.success({
+                        title: res.status,
+                        message: res.answer,
+                    });
+                } else {
+                    iziToast.error({
+                        title: res.status,
+                        message: res.answer,
+                    });
+                }
+
+                if ( location.pathname === '/wishlist/' ) {
+                    iziToast.warning({
+                        message: 'Страница будет перезагружена',
+                        timeout: 2000,
+                        onClosing: function(instance, toast, closedBy){
+                            location = location.href;
+                        }
+                    });
+                }
+
                 ajaxLoader.fadeOut();
             },
             error: function () {
+                $('.wishlist-icon').removeClass('lock');
                 ajaxLoader.fadeOut();
-                alert('Error add to wishlist');
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Error add to wishlist',
+                });
             },
         });
     });

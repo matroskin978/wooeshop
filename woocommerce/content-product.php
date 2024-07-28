@@ -24,12 +24,12 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 
-$product_classes = ( is_front_page() || is_search() || is_product() ) ? 'col-lg-3 col-md-4 col-sm-6 mb-3' : 'col-lg-4 col-sm-6 mb-3';
+$product_classes = ( is_front_page() || is_search() || is_product() || is_page( 'wishlist' ) ) ? 'col-lg-3 col-md-4 col-sm-6 mb-3' : 'col-lg-4 col-sm-6 mb-3';
 ?>
 
 <div <?php wc_product_class( $product_classes, $product ); ?>>
     <div class="product-card">
-        <div class="wishlist-icon" data-id="<?php echo $product->get_id(); ?>">
+        <div class="wishlist-icon <?php echo wooeshop_in_wishlist( $product->get_id() ) ? 'in-wishlist' : '' ?>" data-id="<?php echo $product->get_id(); ?>">
             <i class="fa-solid fa-heart"></i>
         </div>
         <div class="ajax-loader">

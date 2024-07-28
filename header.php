@@ -152,6 +152,8 @@ $wooeshop_theme_options = wooeshop_theme_options();
                     </div>
                 </div>
 
+                <a href="<?php echo get_permalink( get_page_by_path( 'wishlist' ) ) ?>" class="btn p-1"><i class="fa-solid fa-heart"></i></a>
+
 				<?php if ( ! is_cart() ): ?>
                     <div>
                         <button class="btn p-1" id="cart-open" type="button" data-bs-toggle="offcanvas"
