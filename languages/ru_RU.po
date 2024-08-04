@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: _s 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
-"POT-Creation-Date: 2024-06-13 13:29+0300\n"
-"PO-Revision-Date: 2024-06-13 13:29+0300\n"
+"POT-Creation-Date: 2024-08-04 12:49+0300\n"
+"PO-Revision-Date: 2024-08-04 12:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -19,6 +19,18 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: _page-wishlist.php:11 incs/woocommerce-hooks.php:76
+msgid "Home"
+msgstr ""
+
+#: _page-wishlist.php:12
+msgid "Wishlist"
+msgstr ""
+
+#: _page-wishlist.php:27
+msgid "Wishlist is empty"
+msgstr ""
 
 #: front-page.php:104
 msgid "Categories"
@@ -42,6 +54,40 @@ msgstr "Sidebar"
 
 #: functions.php:28
 msgid "Add widgets here to appear in your sidebar."
+msgstr ""
+
+#: functions.php:63
+msgid "Product removed from wishlist"
+msgstr "Товар удален из избранного"
+
+#: functions.php:64
+msgid "Product added to wishlist"
+msgstr "Товар добавлен в избранное"
+
+#: functions.php:65
+msgid "Page  will be reload"
+msgstr "Страница будет перезагружена"
+
+#: functions.php:76
+msgid "Security error 1"
+msgstr ""
+
+#: functions.php:81
+msgid "Security error 2"
+msgstr ""
+
+#: functions.php:89
+#, fuzzy
+#| msgid "Featured products"
+msgid "Error product"
+msgstr "Рекомендуемые товары"
+
+#: functions.php:97
+msgid "The product hase been removed from wishlist"
+msgstr ""
+
+#: functions.php:103
+msgid "The product hase been added to wishlist"
 msgstr ""
 
 #: incs/cpt.php:7 incs/cpt.php:8 incs/cpt.php:14
@@ -91,10 +137,6 @@ msgstr ""
 #: incs/woocommerce-hooks.php:19
 #, php-format
 msgid "Rated %s out of 5"
-msgstr ""
-
-#: incs/woocommerce-hooks.php:76
-msgid "Home"
 msgstr ""
 
 #: woocommerce/cart/cart-empty.php:37

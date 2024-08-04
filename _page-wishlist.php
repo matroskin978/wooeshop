@@ -1,3 +1,4 @@
+<?php /* Template Name: Страница избранного */ ?>
 <?php get_header() ?>
 
 <main class="main">
@@ -17,7 +18,8 @@
                 <h1 class="section-title h3 mb-3"><span><?php the_title() ?></span></h1>
 
 	            <?php
-                    $wishlist = wooeshop_get_wishlist();
+
+                    $wishlist = wooeshop_get_wishlist2();
                     $wishlist = implode(',', $wishlist);
                 ?>
 

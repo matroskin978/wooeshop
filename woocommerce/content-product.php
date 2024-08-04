@@ -29,7 +29,7 @@ $product_classes = ( is_front_page() || is_search() || is_product() || is_page( 
 
 <div <?php wc_product_class( $product_classes, $product ); ?>>
     <div class="product-card">
-        <div class="wishlist-icon <?php echo wooeshop_in_wishlist( $product->get_id() ) ? 'in-wishlist' : '' ?>" data-id="<?php echo $product->get_id(); ?>">
+        <div class="wishlist-icon <?php echo wooeshop_in_wishlist2( $product->get_id() ) ? 'in-wishlist' : '' ?>" data-id="<?php echo $product->get_id(); ?>">
             <i class="fa-solid fa-heart"></i>
         </div>
         <div class="ajax-loader">

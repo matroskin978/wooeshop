@@ -81,7 +81,7 @@ jQuery(document).ready(function($) {
         $('.update-cart').prop('disabled', false);
     });
 
-    $('.wishlist-icon').on('click', function () {
+    $('.wishlist-icon2').on('click', function () {
         let $this = $(this);
 
         if ($this.hasClass('lock')) {
@@ -143,6 +143,58 @@ jQuery(document).ready(function($) {
                 });
             },
         });
+    });
+
+    $('.wishlist-icon').on('click', function () {
+        let $this = $(this);
+        let productId = $this.data('id');
+        let ajaxLoader = $this.closest('.product-card').find('.ajax-loader');
+        ajaxLoader.fadeIn();
+
+        let wishlist = $.cookie('wishlist');
+        $this.toggleClass('in-wishlist');
+        if (wishlist === undefined) {
+            wishlist = [productId];
+            $.cookie('wishlist', JSON.stringify(wishlist), { expires: 30, path: '/' });
+            iziToast.success({
+                title: 'Success',
+                message: wooeshop_wishlist_object.add,
+            });
+        } else {
+            wishlist = JSON.parse(wishlist);
+            if (wishlist.includes(productId)) {
+                let index = wishlist.indexOf(productId);
+                wishlist.splice(index, 1);
+
+                iziToast.success({
+                    title: 'Success',
+                    message: wooeshop_wishlist_object.remove,
+                });
+
+                if ( location.pathname === '/wishlist/' ) {
+                    iziToast.warning({
+                        message: wooeshop_wishlist_object.reload,
+                        timeout: 2000,
+                        onClosing: function(instance, toast, closedBy){
+                            location = location.href;
+                        }
+                    });
+                }
+            } else {
+                if (wishlist.length >= 8) {
+                    wishlist.shift();
+                }
+                wishlist.push(productId);
+                iziToast.success({
+                    title: 'Success',
+                    message: wooeshop_wishlist_object.add,
+                });
+            }
+            $.cookie('wishlist', JSON.stringify(wishlist), { expires: 30, path: '/' });
+
+        }
+
+        ajaxLoader.fadeOut();
     });
 
 });
