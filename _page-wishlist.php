@@ -17,17 +17,18 @@
             <div class="col-12">
                 <h1 class="section-title h3 mb-3"><span><?php the_title() ?></span></h1>
 
-	            <?php
-
-                    $wishlist = wooeshop_get_wishlist2();
-                    $wishlist = implode(',', $wishlist);
-                ?>
-
-	            <?php if ( ! $wishlist ): ?>
-                    <p><?php _e( 'Wishlist is empty', 'wooeshop' ); ?></p>
-	            <?php else: ?>
-		            <?php echo do_shortcode( "[products ids='$wishlist' limit=8]" ) ?>
-	            <?php endif; ?>
+				<?php if ( is_user_logged_in() ): ?>
+					<?php if ( defined( "WISHLIST" ) ): ?>
+						<?php $wishlist = implode( ',', WISHLIST ); ?>
+						<?php if ( ! $wishlist ): ?>
+                            <p><?php _e( 'Wishlist is empty', 'wooeshop' ); ?></p>
+						<?php else: ?>
+							<?php echo do_shortcode( "[products ids='$wishlist' limit=8]" ) ?>
+						<?php endif; ?>
+					<?php endif; ?>
+				<?php else: ?>
+                    <p>Необходима авторизация</p>
+				<?php endif; ?>
 
             </div>
         </div>

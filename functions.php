@@ -58,14 +58,140 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script( 'wooeshop-main', get_template_directory_uri() . '/assets/js/main.js', array(), false, true );
 
 	wp_localize_script( 'wooeshop-main', 'wooeshop_wishlist_object', array(
-		'url'   => admin_url( 'admin-ajax.php' ),
-		'nonce' => wp_create_nonce( 'wooeshop_wishlist_nonce' ),
-		'remove' => __( 'Product removed from wishlist', 'wooeshop' ),
-		'add' => __( 'Product added to wishlist', 'wooeshop' ),
-		'reload' => __( 'Page  will be reload', 'wooeshop' ),
+		'is_auth'   => is_user_logged_in(),
+		'need_auth' => __( 'Authorization required', 'wooeshop' ),
+		'url'       => admin_url( 'admin-ajax.php' ),
+		'nonce'     => wp_create_nonce( 'wooeshop_wishlist_nonce' ),
+		'remove'    => __( 'Product removed from wishlist', 'wooeshop' ),
+		'add'       => __( 'Product added to wishlist', 'wooeshop' ),
+		'reload'    => __( 'Page  will be reload', 'wooeshop' ),
 	) );
 
 } );
+
+add_action( 'wp_ajax_wooeshop_wishlist_action_db', 'wooeshop_wishlist_action_db_cb' );
+
+function wooeshop_wishlist_action_db_cb() {
+	if ( ! isset( $_POST['nonce'] ) ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Security error 1', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	if ( ! wp_verify_nonce( $_POST['nonce'], 'wooeshop_wishlist_nonce' ) ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Security error 2', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	$product_id = (int) $_POST['product_id'];
+	$product    = wc_get_product( $product_id );
+
+	if ( ! $product || $product->get_status() != 'publish' ) {
+		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Error product', 'wooeshop' ) ] );
+		wp_die();
+	}
+
+	global $wpdb;
+	$user_id = get_current_user_id();
+
+	$wishlist = $wpdb->get_row(
+		$wpdb->prepare( "SELECT * FROM wp_wishlist WHERE user_id = %d", $user_id )
+	);
+
+	if ( ! $wishlist ) {
+		// если у пользователя нет списка - создаем
+		if ( $wpdb->insert( 'wp_wishlist', [ 'user_id' => $user_id, 'products' => $product_id ], [ '%d', '%d' ] ) ) {
+			$answer = json_encode( [
+				'status' => 'success',
+				'answer' => 'Товар добавлен в избранное',
+			] );
+		} else {
+			$answer = json_encode( [
+				'status' => 'error',
+				'answer' => 'Ошибка добавления товара в избранное',
+			] );
+		}
+		wp_die( $answer );
+	}
+
+
+	if ( $wishlist->products ) {
+		// если у пользователя есть товары в списке
+		$wishlist_data = explode( ',', $wishlist->products );
+	} else {
+		$wishlist_data = [];
+	}
+
+	if ( false !== ( $key = array_search( $product_id, $wishlist_data ) ) ) {
+		unset( $wishlist_data[ $key ] );
+		// если товар в избранном - удаляем
+		$answer = json_encode( [
+			'status' => 'success',
+			'answer' => __( 'The product hase been removed from wishlist', 'wooeshop' )
+		] );
+	} else {
+		// если товар нет в избранном - добавляем
+		if ( count( $wishlist_data ) >= 8 ) {
+			array_shift( $wishlist_data );
+		}
+		$wishlist_data[] = $product_id;
+		$answer     = json_encode( [
+			'status' => 'success',
+			'answer' => __( 'The product hase been added to wishlist', 'wooeshop' )
+		] );
+	}
+
+	$wishlist_new = implode( ',', $wishlist_data );
+	if ( false !== $wpdb->update( 'wp_wishlist', [ 'products' => $wishlist_new ], [ 'id' => $wishlist->id ], [ '%s' ], [ '%d' ] ) ) {
+		wp_die( $answer );
+	} else {
+		wp_die( json_encode( [
+			'status' => 'error',
+			'answer' => 'Ошибка БД'
+		] ) );
+	}
+
+}
+
+function wooeshop_get_wishlist_db() {
+	if ( ! is_user_logged_in() ) {
+		return [];
+	}
+	$user_id = get_current_user_id();
+	global $wpdb;
+	$wishlist = $wpdb->get_row(
+		$wpdb->prepare( "SELECT * FROM wp_wishlist WHERE user_id = %d", $user_id )
+	);
+
+	if ( ! empty( $wishlist->products ) ) {
+		return explode( ',', $wishlist->products );
+	}
+	return [];
+}
+
+define( "WISHLIST", wooeshop_get_wishlist_db() );
+
+function wooeshop_in_wishlist_db( $product_id ) {
+	return in_array( $product_id, WISHLIST );
+}
+/*
+ * CREATE TABLE IF NOT EXISTS `wp_wishlist` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `products` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci*/
+function wooeshop_wishlist_create_tbl() {
+	global $wpdb;
+	$wpdb->query("CREATE TABLE IF NOT EXISTS `wp_wishlist` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `products` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+}
+wooeshop_wishlist_create_tbl();
 
 add_action( 'wp_ajax_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
 add_action( 'wp_ajax_nopriv_wooeshop_wishlist_action', 'wooeshop_wishlist_action_cb' );
@@ -83,7 +209,7 @@ function wooeshop_wishlist_action_cb() {
 	}
 
 	$product_id = (int) $_POST['product_id'];
-	$product = wc_get_product( $product_id );
+	$product    = wc_get_product( $product_id );
 
 	if ( ! $product || $product->get_status() != 'publish' ) {
 		echo json_encode( [ 'status' => 'error', 'answer' => __( 'Error product', 'wooeshop' ) ] );
@@ -93,14 +219,20 @@ function wooeshop_wishlist_action_cb() {
 	$wishlist = wooeshop_get_wishlist();
 
 	if ( false !== ( $key = array_search( $product_id, $wishlist ) ) ) {
-		unset( $wishlist[$key] );
-		$answer = json_encode( [ 'status' => 'success', 'answer' => __( 'The product hase been removed from wishlist', 'wooeshop' ) ] );
+		unset( $wishlist[ $key ] );
+		$answer = json_encode( [
+			'status' => 'success',
+			'answer' => __( 'The product hase been removed from wishlist', 'wooeshop' )
+		] );
 	} else {
 		if ( count( $wishlist ) >= 8 ) {
 			array_shift( $wishlist );
 		}
 		$wishlist[] = $product_id;
-		$answer = json_encode( [ 'status' => 'success', 'answer' => __( 'The product hase been added to wishlist', 'wooeshop' ) ] );
+		$answer     = json_encode( [
+			'status' => 'success',
+			'answer' => __( 'The product hase been added to wishlist', 'wooeshop' )
+		] );
 	}
 	$wishlist = implode( ',', $wishlist );
 	setcookie( 'wooeshop_wishlist', $wishlist, time() + 3600 * 24 * 30, '/' );
@@ -110,6 +242,7 @@ function wooeshop_wishlist_action_cb() {
 
 function wooeshop_in_wishlist( $product_id ) {
 	$wishlist = wooeshop_get_wishlist();
+
 	return false !== array_search( $product_id, $wishlist );
 }
 
@@ -119,11 +252,13 @@ function wooeshop_get_wishlist() {
 	if ( $wishlist ) {
 		$wishlist = explode( ',', $wishlist );
 	}
+
 	return $wishlist;
 }
 
 function wooeshop_in_wishlist2( $product_id ) {
 	$wishlist = wooeshop_get_wishlist2();
+
 	return false !== array_search( $product_id, $wishlist );
 }
 
@@ -131,8 +266,9 @@ function wooeshop_get_wishlist2() {
 	$wishlist = isset( $_COOKIE['wishlist'] ) ? $_COOKIE['wishlist'] : [];
 	//$wishlist = $_COOKIE['wishlist'] ?? [];
 	if ( $wishlist ) {
-		$wishlist = json_decode($wishlist);
+		$wishlist = json_decode( $wishlist );
 	}
+
 	return $wishlist;
 }
 

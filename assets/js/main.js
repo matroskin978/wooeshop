@@ -145,7 +145,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $('.wishlist-icon').on('click', function () {
+    $('.wishlist-icon3').on('click', function () {
         let $this = $(this);
         let productId = $this.data('id');
         let ajaxLoader = $this.closest('.product-card').find('.ajax-loader');
@@ -195,6 +195,64 @@ jQuery(document).ready(function($) {
         }
 
         ajaxLoader.fadeOut();
+    });
+
+    $('.wishlist-icon').on('click', function () {
+        let $this = $(this);
+        let productId = $this.data('id');
+        let ajaxLoader = $this.closest('.product-card').find('.ajax-loader');
+
+        if (!wooeshop_wishlist_object.is_auth) {
+            iziToast.error({
+                message: wooeshop_wishlist_object.need_auth,
+            });
+            return false;
+        }
+
+        $.ajax({
+            url: wooeshop_wishlist_object.url,
+            type: 'POST',
+            data: {
+                action: 'wooeshop_wishlist_action_db',
+                nonce: wooeshop_wishlist_object.nonce,
+                product_id: productId
+            },
+            beforeSend: function () {
+                ajaxLoader.fadeIn();
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res.status === 'success') {
+                    $this.toggleClass('in-wishlist');
+                    iziToast.success({
+                        message: res.answer,
+                    });
+                } else {
+                    iziToast.error({
+                        message: res.answer,
+                    });
+                }
+
+                if ( location.pathname === '/wishlist/' ) {
+                    iziToast.warning({
+                        message: 'Страница будет перезагружена',
+                        timeout: 2000,
+                        onClosing: function(instance, toast, closedBy){
+                            location = location.href;
+                        }
+                    });
+                }
+
+                ajaxLoader.fadeOut();
+            },
+            error: function () {
+                ajaxLoader.fadeOut();
+                iziToast.error({
+                    message: 'Error add to wishlist',
+                });
+            },
+        });
+
     });
 
 });
